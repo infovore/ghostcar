@@ -1,0 +1,9 @@
+!!!
+%html
+  %head
+    %title Ghostcar
+    = stylesheet_link_tag :all
+    = stylesheet_link_tag "http://twitter.github.com/bootstrap/assets/css/bootstrap-1.0.0.min.css"
+    = csrf_meta_tag
+  %body
+    .container=yield
