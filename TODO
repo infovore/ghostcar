@@ -1,0 +1,11 @@
+Sign up: authenticate through Foursquare, log in as that user.
+Practice scraping all that users checkins.
+Put that into the Background on something like delayed job. (I HATE SETTING UP DJ)
+
+Create another user.
+How does Twitshift link the two accounts? (seems to store a cookie of a kidn - ask james)
+You Authorize this account, and then when it's authorized, and has two accounts, everything is groovy.
+
+Cron:
+  - every morning, we grab the previous 24 hours checkins.
+  - every minute, we see if there's a checkin to make, and if so, we do. (something like a nice "echo_checkin") method
