@@ -1,0 +1,8 @@
+%h1 A page
+
+%p This is a page.
+
+- if current_user
+  %p
+    %i Logged in as
+      %b= current_user.name

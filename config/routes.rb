@@ -1,4 +1,14 @@
 Ghostcar::Application.routes.draw do
+  resource :session do
+    collection do
+      get 'callback'
+    end
+  end
+
+  resources :pages
+
+  root :to => "sessions#new"
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -9,6 +9,6 @@ class SessionsController < ApplicationController
     @access_token = foursquare.access_token(code, callback_session_url)
     session[:access_token] = @access_token
     
-    redirect_to examples_path
+    redirect_to pages_path
   end
 end
