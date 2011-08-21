@@ -28,6 +28,6 @@ class User < ActiveRecord::Base
   end
 
   def all_foursq_checkins_since(timestamp)
-    all_foursq_checkins("afterTimestamp" => t.to_s)
+    all_foursq_checkins("afterTimestamp" => timestamp.to_s)
   end
 end
