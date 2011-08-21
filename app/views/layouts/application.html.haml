@@ -6,12 +6,17 @@
     = stylesheet_link_tag "http://twitter.github.com/bootstrap/assets/css/bootstrap-1.0.0.min.css"
     = csrf_meta_tag
   %body
+    .topbar
+      .container.fixed
+        %h3= link_to "Ghostcar", "/"
+        .details
+          %p
+            - if session[:access_token]
+              %img{:src => current_gc_user.picture_url}
+              Logged in as
+              %i= current_gc_user.name
+              = link_to "Log out", logout_session_path
+            - else
+              = link_to "Log in", new_session_path
     .container
-      %p.details
-        - if session[:access_token]
-          Logged in as
-          %i= current_gc_user.name
-          = link_to "Log out", logout_session_path
-        - else
-          = link_to "Log in", new_session_path
       = yield

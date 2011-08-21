@@ -1,0 +1,9 @@
+.topbar .details {
+  float: right;
+  padding: 8px 0;
+}
+
+.topbar .details img {
+  height: 20px;
+  vertical-align: bottom;
+}
