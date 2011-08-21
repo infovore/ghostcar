@@ -2,6 +2,7 @@ Ghostcar::Application.routes.draw do
   resource :session do
     collection do
       get 'callback'
+      get 'logout'
     end
   end
 

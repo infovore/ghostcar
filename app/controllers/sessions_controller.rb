@@ -19,4 +19,9 @@ class SessionsController < ApplicationController
     end 
     redirect_to pages_path
   end
+
+  def logout
+    session[:access_token] = nil
+    redirect_to "/"
+  end
 end

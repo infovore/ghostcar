@@ -6,4 +6,7 @@
     = stylesheet_link_tag "http://twitter.github.com/bootstrap/assets/css/bootstrap-1.0.0.min.css"
     = csrf_meta_tag
   %body
-    .container=yield
+    .container
+      - if session[:access_token]
+        %p.logout= link_to "Log out", logout_session_path
+      = yield
