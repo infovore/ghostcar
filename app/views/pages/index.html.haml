@@ -2,8 +2,12 @@
 
 %p This is a page.
 
-- if current_user
+- if session[:access_token] 
+  %p= image_tag(current_gc_user.picture_url)
   %p
     %i 
       Logged in as
-      %b= current_user.name
+      %b= current_gc_user.name
+  .user
+    %pre
+      = current_gc_user.inspect
