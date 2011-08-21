@@ -2,11 +2,7 @@
 
 %p= image_tag(@user.picture_url)
 .user
-  %h2 User inspection
-  %pre
-    = @user.inspect
-
-  %h2 Checkin inspection
+  %h2 Checkins
   %p
     = @user.firstname
     has #{pluralize @user.checkins.size, "checkin"}.
