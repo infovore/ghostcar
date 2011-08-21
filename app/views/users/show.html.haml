@@ -1,6 +1,8 @@
-%h1= @user.name
+.row
+  .span2.columns= image_tag(@user.picture_url)
+  .span14.columns
+    %h1= @user.name
 
-%p= image_tag(@user.picture_url)
 .user
   %h2 Checkins
   %p
