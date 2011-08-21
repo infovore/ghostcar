@@ -1,0 +1,6 @@
+%h1= @user.name
+
+%p= image_tag(@user.picture_url)
+.user
+  %pre
+    = @user.inspect

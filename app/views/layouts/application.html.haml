@@ -7,6 +7,11 @@
     = csrf_meta_tag
   %body
     .container
-      - if session[:access_token]
-        %p.logout= link_to "Log out", logout_session_path
+      %p.details
+        - if session[:access_token]
+          Logged in as
+          %i= current_gc_user.name
+          = link_to "Log out", logout_session_path
+        - else
+          = link_to "Log in", new_session_path
       = yield

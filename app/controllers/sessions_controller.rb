@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
  def new
-    return redirect_to pages_path if current_user
+    return redirect_to user_path(current_gc_user) if current_user
     @authorize_url = foursquare.authorize_url(callback_session_url)
   end
   

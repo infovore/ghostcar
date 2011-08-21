@@ -7,6 +7,7 @@ Ghostcar::Application.routes.draw do
   end
 
   resources :pages
+  resources :users
 
   root :to => "sessions#new"
   
