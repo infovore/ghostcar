@@ -2,5 +2,29 @@
 
 %p= image_tag(@user.picture_url)
 .user
+  %h2 User inspection
   %pre
     = @user.inspect
+
+  %h2 Checkin inspection
+  %p
+    = @user.firstname
+    has #{pluralize @user.checkins.size, "checkin"}.
+  %table
+    %thead
+      %tr
+        %th ID
+        %th Venue ID
+        %th Venue Name
+        %th Shout
+        %th Timestamp
+        %th Timezone
+    %tbody
+      - for checkin in @user.checkins
+        %tr
+          %td= checkin.checkin_id
+          %td= checkin.venue_id
+          %td= checkin.venue_name
+          %td= checkin.shout
+          %td= checkin.timestamp
+          %td= checkin.timezone

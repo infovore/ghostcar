@@ -1,6 +1,9 @@
 class User < ActiveRecord::Base
   require 'addressable/uri'
   require 'open-uri'
+
+  has_many :checkins
+
   def name
     "#{firstname} #{lastname}"
   end

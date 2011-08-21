@@ -10,7 +10,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110821110112) do
+ActiveRecord::Schema.define(:version => 20110821113614) do
+
+  create_table "checkins", :force => true do |t|
+    t.string   "user_id"
+    t.string   "checkin_id"
+    t.string   "shout"
+    t.string   "timestamp"
+    t.string   "venue_id"
+    t.string   "timezone"
+    t.string   "venue_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "access_token"
