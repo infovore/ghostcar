@@ -8,3 +8,8 @@
   margin-right: 5px;
   vertical-align: bottom;
 }
+
+.container.main {
+  padding-top: 60px;
+}
+
