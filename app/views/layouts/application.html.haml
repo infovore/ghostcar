@@ -19,4 +19,8 @@
             - else
               = link_to "Log in", new_session_path
     .container.main
+      #flash
+        - flash.each do |key, value|
+          %div{:class => "alert-message #{key}"}= value
+      
       = yield
