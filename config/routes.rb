@@ -7,7 +7,11 @@ Ghostcar::Application.routes.draw do
   end
 
   resources :pages
-  resources :users
+  resources :users do
+    member do
+      post 'update_checkins'
+    end
+  end
 
   root :to => "pages#index"
   

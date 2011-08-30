@@ -1,21 +1,65 @@
-.row
-
-  %h2 Step 1: Sign in with Foursquare.
-
-  %p You should sign in with your main Foursquare account: the account you want to chase the ghost car of.
-
-  - if session[:access_token]
+- if current_gc_user && !current_gc_user.secondary_access_token.blank?
+  %h3
     %img{:src => current_gc_user.picture_url}
     Logged in as
     %i= current_gc_user.name
-  - else
-    %p= link_to image_tag("connect.png"), @authorize_url
 
-  - if session[:access_token]
-    %h2 Step 2: Sign out of Foursquare and create a <i>new</i> account. 
+  %p
+    = pluralize(current_gc_user.checkins.size, "checkin")
+    tracked.
+  %p= button_to "Get latest checkins", update_checkins_user_path(current_gc_user)
+
+  - if current_gc_user.checkins.any?
+    - if @last_year
+      %h3 A year ago...
+
+      %p
+        The next checkin to be echoed will be from
+        = @last_year.time
+        when you were at
+        = @last_year.venue_name
+        - if @last_year.shout
+          and you said
+          %i "#{@last_year.shout}"
+
+    %h3 Last Ten Checkins
     
-    %p This will be a secret account of yours that lives in the past: the ghost car.
+    %table
+      %thead
+        %tr
+          %th ID
+          %th Venue ID
+          %th Venue Name
+          %th Shout
+          %th Timestamp
+          %th Timezone
+      %tbody
+        - for checkin in current_gc_user.latest_checkins
+          %tr
+            %td= checkin.checkin_id
+            %td= checkin.venue_id
+            %td= checkin.venue_name
+            %td= checkin.shout
+            %td= checkin.time
+            %td= checkin.timezone
+- else
+  .row
+    %h2 Step 1: Sign in with Foursquare.
 
-    %h2 Step 3: Authorize <code>ghostcar</code> to send updates from your second, ghost account.
+    %p You should sign in with your main Foursquare account: the account you want to chase the ghost car of.
 
-    %p BUTTON HERE.
+    - if session[:access_token]
+      %img{:src => current_gc_user.picture_url}
+      Logged in as
+      %i= current_gc_user.name
+    - else
+      %p= link_to image_tag("connect.png"), @authorize_url
+
+    - if session[:access_token]
+      %h2 Step 2: Sign out of Foursquare and create a <i>new</i> account. 
+      
+      %p This will be a secret account of yours that lives in the past: the ghost car.
+
+      %h2 Step 3: Authorize <code>ghostcar</code> to send updates from your second, ghost account.
+
+      %p= link_to "Link accounts", @authorize_url

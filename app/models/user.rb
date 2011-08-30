@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   require 'open-uri'
 
   has_many :checkins, :order => :timestamp
+  has_many :latest_checkins, :class_name => "Checkin", :order => "timestamp desc", :limit => 10
 
   def name
     "#{firstname} #{lastname}"
@@ -29,5 +30,9 @@ class User < ActiveRecord::Base
 
   def all_foursq_checkins_since(timestamp)
     all_foursq_checkins("afterTimestamp" => timestamp.to_s)
+  end
+
+  def next_checkin_after(t)
+    checkins.where("timestamp >= #{t.to_i}").first
   end
 end

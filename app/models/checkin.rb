@@ -21,6 +21,10 @@ class Checkin < ActiveRecord::Base
     end
   end
 
+  def time
+    Time.at(timestamp)
+  end
+
   private
 
   def self.create_for_user_from_json(user,json)
@@ -33,5 +37,4 @@ class Checkin < ActiveRecord::Base
                            :venue_name => json['venue']['name'])
     end
   end
-
 end
