@@ -27,11 +27,12 @@ class ApplicationController < ActionController::Base
   end
   
   def foursquare
-    unless current_user
+    # this has to have a client ID attached.
+    #unless session[:access_token]
       @foursquare ||= Foursquare::Base.new(FOURSQUARE_CLIENT_ID, FOURSQUARE_CLIENT_SECRET)
-    else
-      @foursquare ||= Foursquare::Base.new(session[:access_token])
-    end
+    #else
+      #@foursquare ||= Foursquare::Base.new(session[:access_token])
+    #end
   end
   
 end
