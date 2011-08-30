@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110821113614) do
+ActiveRecord::Schema.define(:version => 20110830082221) do
 
   create_table "checkins", :force => true do |t|
     t.string   "user_id"
@@ -32,6 +32,8 @@ ActiveRecord::Schema.define(:version => 20110821113614) do
     t.string   "foursquare_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "secondary_access_token"
+    t.string   "secondary_foursquare_id"
   end
 
 end
