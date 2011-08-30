@@ -1,9 +1,9 @@
 class SessionsController < ApplicationController
- def new
+  def new
     return redirect_to user_path(current_gc_user) if current_user
     @authorize_url = foursquare.authorize_url(callback_session_url)
   end
-  
+
   def callback
     code = params[:code]
     @access_token = foursquare.access_token(code, callback_session_url)
