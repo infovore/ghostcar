@@ -17,10 +17,13 @@
         The next checkin to be echoed will be from
         = @last_year.time
         when you were at
-        = @last_year.venue_name
+        = link_to @last_year.venue_name, @last_year.venue_url
         - if @last_year.shout
           and you said
           %i "#{@last_year.shout}"
+        %br
+        It will be echoed at
+        = @last_year.echo_time
 
     %h3 Last Ten Checkins
     
@@ -28,8 +31,7 @@
       %thead
         %tr
           %th ID
-          %th Venue ID
-          %th Venue Name
+          %th Venue
           %th Shout
           %th Timestamp
           %th Timezone
@@ -37,8 +39,7 @@
         - for checkin in current_gc_user.latest_checkins
           %tr
             %td= checkin.checkin_id
-            %td= checkin.venue_id
-            %td= checkin.venue_name
+            %td= link_to checkin.venue_name, checkin.venue_url
             %td= checkin.shout
             %td= checkin.time
             %td= checkin.timezone

@@ -12,8 +12,7 @@
     %thead
       %tr
         %th ID
-        %th Venue ID
-        %th Venue Name
+        %th Venue
         %th Shout
         %th Timestamp
         %th Timezone
@@ -21,8 +20,7 @@
       - for checkin in @user.checkins
         %tr
           %td= checkin.checkin_id
-          %td= checkin.venue_id
-          %td= checkin.venue_name
+          %td= link_to checkin.venue_name, checkin.venue_url
           %td= checkin.shout
           %td= checkin.time 
           %td= checkin.timezone

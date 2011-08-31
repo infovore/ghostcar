@@ -25,6 +25,14 @@ class Checkin < ActiveRecord::Base
     Time.at(timestamp)
   end
 
+  def echo_time
+    Time.at(timestamp) + 1.year
+  end
+
+  def venue_url
+    "http://foursquare.com/venue/#{venue_id}"
+  end
+
   private
 
   def self.create_for_user_from_json(user,json)
