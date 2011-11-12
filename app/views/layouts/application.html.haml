@@ -7,10 +7,10 @@
     = csrf_meta_tag
   %body
     .topbar
-      .container.fixed
-        %h3= link_to "Ghostcar", "/"
-        .details
-          %p
+      .topbar-inner
+        .container
+          %h3= link_to "Ghostcar", "/"
+          .details
             - if session[:access_token]
               %img{:src => current_gc_user.picture_url}
               Logged in as
