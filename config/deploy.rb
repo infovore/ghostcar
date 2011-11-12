@@ -1,11 +1,12 @@
+require 'bundler/capistrano'
 default_run_options[:pty] = true
 set :application, "ghostcar"
 set :scm, :git
 set :repository, "git@github.com:infovore/ghostcar.git"
 set :branch, "master"
-set :deploy_to, "/var/www/rails/#{application}"
+set :deploy_to, "/var/www/#{application}"
 set :ssh_options, { :forward_agent => true }
-set :port, 30000
+# set :port, 30000
 set :user, "twra2"
 set :use_sudo, false
 
@@ -17,7 +18,7 @@ set :rails_env, ENV["TARGET"]
 
 case ENV["TARGET"]
 when "production"
-  set :domain, "turmeric"
+  set :domain, "paprika"
   role :web, domain
   role :app, domain
   role :db,  domain, :primary => true
