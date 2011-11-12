@@ -1,6 +1,7 @@
 .topbar .details {
   float: right;
-  padding: 8px 0;
+  line-height: 18px;
+  padding: 10px 0 11px;
 }
 
 .topbar .details img {
