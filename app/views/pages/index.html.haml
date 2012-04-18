@@ -69,8 +69,15 @@
     - if session[:access_token]
       %h2 Step 2: Sign out of Foursquare and create a <i>new</i> account. 
       
-      %p This will be a secret account of yours that lives in the past: the ghost car.
+      %p This will be a secret account of yours that lives in the past: the ghost car. You might want to append your Surname to "Surname in the Past" so you know it's you.
 
       %h2 Step 3: Authorize <code>ghostcar</code> to send updates from your second, ghost account.
+
+      %p 
+        %b Remember:
+        make sure you are logged into Foursquare as your
+        %i second
+        account - the one in the past. If you aren't logged in, and Foursquare asks you to log in, please log in with your
+        %i second account - the one in the past.
 
       %p= link_to "Link accounts", @authorize_url
