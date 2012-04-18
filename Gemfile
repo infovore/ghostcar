@@ -7,6 +7,7 @@ gem 'mysql'
 gem 'haml'
 gem 'quimby'
 gem 'addressable'
+gem 'rest-client'
 
 # Deploy with Capistrano
 gem 'capistrano'

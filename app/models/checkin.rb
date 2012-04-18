@@ -1,6 +1,8 @@
 class Checkin < ActiveRecord::Base
   belongs_to :user
 
+  scope :reposted, :conditions => {:reposted => true}
+
   def self.ingest_all_checkins_for_user(user)
     checkin_data = user.all_foursq_checkins
     checkin_data.each do |raw_checkin|
@@ -18,6 +20,8 @@ class Checkin < ActiveRecord::Base
       checkin_data.each do |raw_checkin|
         create_for_user_from_json(user, raw_checkin)
       end
+    else
+      self.ingest_all_checkins_for_user(user)
     end
   end
 
@@ -31,6 +35,16 @@ class Checkin < ActiveRecord::Base
 
   def venue_url
     "http://foursquare.com/venue/#{venue_id}"
+  end
+
+  def repost!
+    # send it to foursquare
+    RestClient.post 'https://api.foursquare.com/v2/checkins/add',
+                    :oauth_token => user.secondary_access_token,
+                    :venueId => venue_id,
+                    :shout => shout
+    update_attribute(:reposted, true)
+    # puts "Reposting a checkin to #{venue_name} (#{shout}) for #{user.name}"
   end
 
   private
