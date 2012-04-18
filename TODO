@@ -6,7 +6,7 @@ Put that into the Background on something like delayed job. (I HATE SETTING UP D
 √ You Authorize this account, and then when it's authorized, and has two accounts, everything is groovy.
 
 Cron:
-  - once per day, we grab the previous 24 hours checkins.
-  - every minute, we see if there's a checkin to make, and if so, we do. (something like a nice "echo_checkin") method
+  √ once per day, we grab the previous 24 hours checkins.
+  √ every minute, we see if there's a checkin to make, and if so, we do. (something like a nice "echo_checkin") method
 
 - here's a thought: do we actually cache out the future checkins to another table, so that each minute, we just have to walk file/db and do what it says?
