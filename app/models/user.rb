@@ -9,16 +9,14 @@ class User < ActiveRecord::Base
     "#{firstname} #{lastname}"
   end
 
-  def all_foursq_checkins(options = {})
-    checkins_url = "https://api.foursquare.com/v2/users/self/checkins"
+  def all_foursq_checkins(options={})
     count = 100
     offset = 0
     items = []
     while count == 100
-      uri = Addressable::URI.new
-      uri.query_values = {:oauth_token => access_token, :limit => count.to_s, :offset => offset.to_s}.merge(options)
-      full_path = checkins_url + "?" + uri.query
-      raw_json = open(full_path).read
+      final_query = {:oauth_token => access_token, :limit => count.to_s, :offset => offset.to_s}.merge(options)
+      raw_json = RestClient.get 'https://api.foursquare.com/v2/users/self/checkins', {:params => final_query}
+
       data = JSON.parse(raw_json)
       actual_data = data["response"]["checkins"]["items"]
       items += actual_data
