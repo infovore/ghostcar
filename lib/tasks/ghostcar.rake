@@ -11,10 +11,10 @@ namespace :ghostcar do
     end
   end
 
-  desc "Re-post any checkins (run once a minute under cron"
+  desc "Re-post any checkins (run once a minute under cron)"
   task :repost_checkins => :environment do
     Checkin.order(:timestamp).where(:reposted => false).each do |checkin|
-      if Time.now.utc > checkin.echo_time.utc
+      if Time.now.utc > checkin.echo_time.utc && checkin.echo_time.utc > Time.now.utc - 2.minutes
         checkin.repost!
       end
     end
