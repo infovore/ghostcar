@@ -31,6 +31,12 @@ class SessionsController < ApplicationController
       @user.secondary_foursquare_id = @secondary_user.id
 
       @user.save
+
+      # now ingest for that new user
+      Checkin.ingest_latest_checkins_for_user(@user)
+      @user.reload
+    
+      flash[:success] = "Welcome to Ghostcar!#{@user.checkins.size} checkins imported."
     end
     redirect_to pages_path
   end
