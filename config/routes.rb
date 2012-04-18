@@ -13,6 +13,7 @@ Ghostcar::Application.routes.draw do
     end
   end
 
+  match "about" => "pages#about"
   root :to => "pages#index"
   
   # The priority is based upon order of creation:
