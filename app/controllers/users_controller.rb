@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_filter :scope_to_user, :except => :index
+  before_filter :require_user
 
   def update_checkins
     current_checkin_count = @user.checkins.size
