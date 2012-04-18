@@ -1,13 +1,12 @@
 - if current_gc_user && !current_gc_user.secondary_access_token.blank?
   %h3
-    %img{:src => current_gc_user.picture_url}
-    Logged in as
+    Ghostcar for
     %i= current_gc_user.name
 
   %p
     = pluralize(current_gc_user.checkins.size, "checkin")
     tracked.
-  %p= button_to "Get latest checkins", update_checkins_user_path(current_gc_user)
+  
 
   - if current_gc_user.checkins.any?
     - if @last_year
@@ -24,25 +23,36 @@
         %br
         It will be echoed at
         = @last_year.echo_time
+        to 
+        = link_to "this account.", "https://foursquare.com/user/#{current_gc_user.secondary_foursquare_id}"
 
-    %h3 Last Ten Checkins
+    - if @show_all
+      %h3 
+        All Checkins (page #{params[:page] || 1})
+        = link_to "Show Latest", "/"
+    - else
+      %h3
+        Last Ten Checkins
+        = link_to "Show All", "/?show=all"
     
     %table
       %thead
         %tr
-          %th ID
           %th Venue
           %th Shout
           %th Timestamp
+          %th Will be reposted at
           %th Timezone
       %tbody
-        - for checkin in current_gc_user.latest_checkins
+        - for checkin in @checkins
           %tr
-            %td= checkin.checkin_id
             %td= link_to checkin.venue_name, checkin.venue_url
             %td= checkin.shout
             %td= checkin.time
+            %td= checkin.echo_time
             %td= checkin.timezone
+    - if @show_all
+      = paginate @checkins
 - else
   .row
     %h2 Step 1: Sign in with Foursquare.
