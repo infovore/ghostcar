@@ -8,6 +8,7 @@ gem 'haml'
 gem 'quimby'
 gem 'addressable'
 gem 'rest-client'
+gem 'kaminari'
 
 # Deploy with Capistrano
 gem 'capistrano'
