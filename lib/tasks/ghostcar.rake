@@ -16,6 +16,7 @@ namespace :ghostcar do
     Checkin.order(:timestamp).where(:reposted => false).each do |checkin|
       if Time.now.utc > checkin.echo_time.utc && checkin.echo_time.utc > Time.now.utc - 2.minutes
         checkin.repost!
+        print "."
       end
     end
   end
