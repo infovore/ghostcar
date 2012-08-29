@@ -57,11 +57,12 @@ class Checkin < ActiveRecord::Base
       else
         venue_id, venue_name = nil,nil
       end
+
       user.checkins.create(:checkin_id => json['id'],
                            :timezone => json['timeZone'],
                            :timestamp => json['createdAt'],
                            :shout => json['shout'],
-                           :venue_id => venue_id
+                           :venue_id => venue_id,
                            :venue_name => venue_name)
     end
   end
