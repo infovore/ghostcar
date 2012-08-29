@@ -51,12 +51,18 @@ class Checkin < ActiveRecord::Base
 
   def self.create_for_user_from_json(user,json)
     unless user.checkins.where(:checkin_id => json['id']).any?
+      if json['venue']
+        venue_id = json['venue']['id']
+        venue_name = json['venue']['name']
+      else
+        venue_id, venue_name = nil,nil
+      end
       user.checkins.create(:checkin_id => json['id'],
                            :timezone => json['timeZone'],
                            :timestamp => json['createdAt'],
                            :shout => json['shout'],
-                           :venue_id => json['venue']['id'],
-                           :venue_name => json['venue']['name'])
+                           :venue_id => venue_id
+                           :venue_name => venue_name)
     end
   end
 end
