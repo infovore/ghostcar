@@ -10,3 +10,16 @@ Cron:
   √ every minute, we see if there's a checkin to make, and if so, we do. (something like a nice "echo_checkin") method
 
 - here's a thought: do we actually cache out the future checkins to another table, so that each minute, we just have to walk file/db and do what it says?
+
+
+- bug with checkins
+Some Checkins have no venue. I've fixed this so venue can be null now. However, what do they have instead? Latlng? Need to investigate and fix up.
+
+### Notes on Foursquare API changes
+
+we need to submit a version with every request. That means:
+
+* upgrading Quimby and reflecting changes to Quimby API
+* finding all those things that use RestClient: they probably need changing too
+* can the RestClient stuff be upgraded to use Quimby?
+* can we upgrade Quimby but NOT the rest of the stack - the stack feels like it needs some specific versioning.
