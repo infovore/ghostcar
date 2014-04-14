@@ -20,4 +20,20 @@ namespace :ghostcar do
       end
     end
   end
+
+  desc "Update photo URLs for all users"
+  task :update_photo_urls => :environment do
+    users = User.all
+    users.each do |user|
+      next unless user.access_token
+      foursquare = GhostClient.foursquare_client(user.access_token)
+
+      fs_user = f.user('self')
+      user.photo_prefix = fs_user.photo.prefix
+      user.photo_suffix = fs_user.photo.suffix
+      user.save
+      puts "Updated #{user.name}"
+    end
+  end
+
 end

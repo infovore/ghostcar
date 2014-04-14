@@ -38,6 +38,8 @@ class Checkin < ActiveRecord::Base
   end
 
   def repost!
+    # TODO: use the foursquare lirary properly.
+    #
     # send it to foursquare
     RestClient.post 'https://api.foursquare.com/v2/checkins/add',
                     :oauth_token => user.secondary_access_token,
@@ -48,6 +50,8 @@ class Checkin < ActiveRecord::Base
   end
 
   private
+
+  # TODO: use mashie here.
 
   def self.create_for_user_from_json(user,json)
     unless user.checkins.where(:checkin_id => json['id']).any?

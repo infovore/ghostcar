@@ -1,6 +1,9 @@
 class PagesController < ApplicationController
   def index
-    @authorize_url = foursquare.authorize_url(callback_session_url)
+    client = GhostClient.oauth_client
+
+    @authorize_url = client.auth_code.authorize_url(:redirect_uri => callback_session_url)
+
     if current_gc_user
       t = Time.now - 1.year
       @last_year = current_gc_user.next_checkin_after(t)

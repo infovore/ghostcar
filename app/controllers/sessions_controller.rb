@@ -1,18 +1,27 @@
 class SessionsController < ApplicationController
   def new
     return redirect_to user_path(current_gc_user) if current_user
-    @authorize_url = foursquare.authorize_url(callback_session_url)
+    client = GhostClient.oauth_client
+
+    @authorize_url = client.auth_code.authorize_url(:redirect_uri => callback_session_url)
   end
 
   def callback
     code = params[:code]
     if !current_gc_user
-      @access_token = foursquare.access_token(code, callback_session_url)
-      session[:access_token] = @access_token
+      @access_token = client.auth_code.get_token(code, :redirect_uri => callback_session_url)
 
-      @user = User.find_or_create_by_access_token(@access_token)
+      session[:access_token] = @access_token.token
+
+      @user = User.find_or_create_by_access_token(@access_token.token)
       u = current_user
       if @user.foursquare_id.blank?
+        @user.update_attributes(:firstname => u.firstName,
+                                :lastname => u.lastName,
+                                :foursquare_id => u.id,
+                                :photo_prefix => u.photo.prefix,
+                                :photo_suffix => u.photo.suffix)
+
         @user.update_attributes(:firstname => u.first_name,
                                 :lastname => u.last_name,
                                 :foursquare_id => u.id,
