@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120418142351) do
+ActiveRecord::Schema.define(:version => 20140414190319) do
 
   create_table "checkins", :force => true do |t|
     t.string   "user_id"
@@ -20,8 +21,8 @@ ActiveRecord::Schema.define(:version => 20120418142351) do
     t.string   "venue_id"
     t.string   "timezone"
     t.string   "venue_name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
     t.boolean  "reposted",                :default => false
   end
 
@@ -29,12 +30,13 @@ ActiveRecord::Schema.define(:version => 20120418142351) do
     t.string   "access_token"
     t.string   "firstname"
     t.string   "lastname"
-    t.string   "picture_url"
     t.string   "foursquare_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
     t.string   "secondary_access_token"
     t.string   "secondary_foursquare_id"
+    t.string   "photo_prefix"
+    t.string   "photo_suffix"
   end
 
 end
