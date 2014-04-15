@@ -6,7 +6,7 @@ class Checkin < ActiveRecord::Base
   def self.ingest_all_checkins_for_user(user)
     checkin_data = user.all_foursq_checkins
     checkin_data.each do |raw_checkin|
-      create_for_user_from_json(user, raw_checkin)
+      create_for_user_from_mashie(user, raw_checkin)
     end
   end
   
@@ -18,7 +18,7 @@ class Checkin < ActiveRecord::Base
 
       checkin_data = user.all_foursq_checkins_since(latest_timestamp)
       checkin_data.each do |raw_checkin|
-        create_for_user_from_json(user, raw_checkin)
+        create_for_user_from_mashie(user, raw_checkin)
       end
     else
       self.ingest_all_checkins_for_user(user)
@@ -38,13 +38,11 @@ class Checkin < ActiveRecord::Base
   end
 
   def repost!
-    # TODO: use the foursquare lirary properly.
-    #
     # send it to foursquare
-    RestClient.post 'https://api.foursquare.com/v2/checkins/add',
-                    :oauth_token => user.secondary_access_token,
-                    :venueId => venue_id,
-                    :shout => shout
+    secondary_foursquare = GhostClient.foursquare_client(user.secondary_access_token)
+      
+    secondary_foursquare.add_checkin(:venueId => venue_id, :shout => shout)
+    
     update_attribute(:reposted, true)
     # puts "Reposting a checkin to #{venue_name} (#{shout}) for #{user.name}"
   end
@@ -52,20 +50,23 @@ class Checkin < ActiveRecord::Base
   private
 
   # TODO: use mashie here.
-
-  def self.create_for_user_from_json(user,json)
-    unless user.checkins.where(:checkin_id => json['id']).any?
-      if json['venue']
-        venue_id = json['venue']['id']
-        venue_name = json['venue']['name']
+  #
+  def self.create_for_user_from_mashie(user,mashie, initial=false)
+    unless user.checkins.where(:checkin_id => mashie.id).any?
+      if mashie.venue
+        # TODO: we need to model Venues, maybe? Certainly extract latlong for
+        # venues from the JSON.
+        venue_id = mashie.venue.id
+        venue_name = mashie.venue.name
       else
+        # TODO: what sort of checkins don't have location?
         venue_id, venue_name = nil,nil
       end
 
-      user.checkins.create(:checkin_id => json['id'],
-                           :timezone => json['timeZone'],
-                           :timestamp => json['createdAt'],
-                           :shout => json['shout'],
+      user.checkins.create(:checkin_id => mashie.id,
+                           :timezone_offset => mashie.timeZoneOffset,
+                           :timestamp => mashie.createdAt,
+                           :shout => mashie.shout,
                            :venue_id => venue_id,
                            :venue_name => venue_name)
     end
