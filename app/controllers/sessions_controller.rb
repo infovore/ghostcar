@@ -32,10 +32,10 @@ class SessionsController < ApplicationController
       @user = current_gc_user
 
       @secondary_access_token = foursquare.access_token(code, callback_session_url)
-      @user.secondary_access_token = @secondary_access_token
+      @user.secondary_access_token = @secondary_access_token.token
 
-      secondary_foursquare= Foursquare::Base.new(@secondary_access_token)
-      @secondary_user = secondary_foursquare.users.find("self")
+      secondary_foursquare= GhostClient.foursquare_client(@secondary_access_token.token)
+      @secondary_user = secondary_foursquare.user("self")
       
       @user.secondary_foursquare_id = @secondary_user.id
 
