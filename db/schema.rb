@@ -20,8 +20,8 @@ ActiveRecord::Schema.define(:version => 20140415100703) do
     t.integer  "timestamp",       :limit => 8
     t.string   "venue_id"
     t.string   "venue_name"
-    t.datetime "created_at",                                      :null => false
-    t.datetime "updated_at",                                      :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "reposted",                     :default => false
     t.integer  "timezone_offset"
   end
@@ -31,8 +31,8 @@ ActiveRecord::Schema.define(:version => 20140415100703) do
     t.string   "firstname"
     t.string   "lastname"
     t.string   "foursquare_id"
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "secondary_access_token"
     t.string   "secondary_foursquare_id"
     t.string   "photo_prefix"
