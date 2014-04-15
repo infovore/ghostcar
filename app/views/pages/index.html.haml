@@ -42,7 +42,7 @@
           %th Shout
           %th Timestamp
           %th Will be reposted at
-          %th Timezone
+          %th Timezone Offset 
       %tbody
         - for checkin in @checkins
           %tr
@@ -50,7 +50,7 @@
             %td= checkin.shout
             %td= checkin.time
             %td= checkin.echo_time
-            %td= checkin.timezone
+            %td= checkin.timezone_offset
     - if @show_all
       = paginate @checkins
 - else
