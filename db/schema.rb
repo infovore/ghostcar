@@ -11,19 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140414190319) do
+ActiveRecord::Schema.define(:version => 20140415100703) do
 
   create_table "checkins", :force => true do |t|
     t.string   "user_id"
     t.string   "checkin_id"
     t.string   "shout"
-    t.integer  "timestamp",  :limit => 8
+    t.integer  "timestamp",       :limit => 8
     t.string   "venue_id"
-    t.string   "timezone"
     t.string   "venue_name"
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
-    t.boolean  "reposted",                :default => false
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
+    t.boolean  "reposted",                     :default => false
+    t.integer  "timezone_offset"
   end
 
   create_table "users", :force => true do |t|
