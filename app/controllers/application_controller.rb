@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
   def current_user
     return nil if session[:access_token].blank?
     foursquare_client = GhostClient.foursquare_client(session[:access_token])
-    @current_user ||= foursquare.user("self")
+    @current_user ||= foursquare_client.user("self")
   end
   
 end
