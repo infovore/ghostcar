@@ -8,6 +8,7 @@ class SessionsController < ApplicationController
 
   def callback
     code = params[:code]
+    client = GhostClient.oauth_client
     if !current_gc_user
       @access_token = client.auth_code.get_token(code, :redirect_uri => callback_session_url)
 
