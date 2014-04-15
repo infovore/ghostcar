@@ -14,7 +14,7 @@
             %li= link_to "About", "/about"
           .details
             - if session[:access_token]
-              %img{:src => current_gc_user.picture_url}
+              %img{:src => current_gc_user.photo_url}
               Logged in as
               %i= current_gc_user.name
               = link_to "Log out", logout_session_path

@@ -60,7 +60,7 @@
     %p You should sign in with your main Foursquare account: the account you want to chase the ghost car of.
 
     - if session[:access_token]
-      %img{:src => current_gc_user.picture_url}
+      %img{:src => current_gc_user.photo_url('medium')}
       Logged in as
       %i= current_gc_user.name
     - else
