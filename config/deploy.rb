@@ -26,6 +26,7 @@ end
 
 default_run_options[:pty] = true
 after "deploy:update_code", "symlink:db"
+after "deploy:update_code", "symlink:env"
 
 namespace :deploy do
   desc "Restart Application"
@@ -43,5 +44,10 @@ namespace :symlink do
   desc "Make copy of database yaml"
   task :db do
     sudo "cp #{shared_path}/config/database.yml #{release_path}/config/database.yml" 
+  end
+
+  desc "Make copy of .env"
+  task :env do
+    sudo "cp #{shared_path}/.env #{release_path}/.env"
   end
 end
