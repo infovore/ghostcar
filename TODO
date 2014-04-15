@@ -19,7 +19,5 @@ Some Checkins have no venue. I've fixed this so venue can be null now. However, 
 
 we need to submit a version with every request. That means:
 
-* upgrading Quimby and reflecting changes to Quimby API
-* finding all those things that use RestClient: they probably need changing too
-* can the RestClient stuff be upgraded to use Quimby?
-* can we upgrade Quimby but NOT the rest of the stack - the stack feels like it needs some specific versioning.
+* update front-end to reflect changes and possibly be better
+* get a new mysql dump, please
