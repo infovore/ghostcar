@@ -43,6 +43,7 @@
           %th Timestamp
           %th Will be reposted at
           %th Timezone Offset 
+          %th Reposted?
       %tbody
         - for checkin in @checkins
           %tr
@@ -51,6 +52,9 @@
             %td= checkin.time
             %td= checkin.echo_time
             %td= checkin.timezone_offset
+            %td
+              - if checkin.reposted
+                √
     - if @show_all
       = paginate @checkins
 - else
