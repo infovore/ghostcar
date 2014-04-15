@@ -28,7 +28,7 @@ namespace :ghostcar do
       next unless user.access_token
       foursquare = GhostClient.foursquare_client(user.access_token)
 
-      fs_user = f.user('self')
+      fs_user = foursquare.user('self')
       user.photo_prefix = fs_user.photo.prefix
       user.photo_suffix = fs_user.photo.suffix
       user.save
